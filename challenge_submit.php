@@ -12,6 +12,11 @@
 				':value' => (5 + $_POST['value'])
 				));
 			
+			$stmt = $db->prepare('UPDATE member SET token = token - (:challenge_cost + :token) WHERE id = :id');
+			$stmt->execute(array(':token' => $_POST['value'], 
+							 	 ':challenge_cost' => CHALLENGE_CREATION_PRICE,
+								 ':id' => $_SESSION['memberID']));
+			
 			//Challenge successful created
 			//Redirect to member page
 			header('Location: memberpage.php?action=challenge_creation_success');

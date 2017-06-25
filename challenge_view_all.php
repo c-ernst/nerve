@@ -21,6 +21,7 @@ catch (Exception $e) {
     <th>Created</th>
     <th>Status</th>
     <th>Time Left </th>
+    <th>Votes</th>
   </tr>
   <?php
 try {
@@ -82,7 +83,22 @@ try {
 			. '</td><td>' 
 			. $flag . '</td><td>' 
 			. sprintf("%02dh %02dm %02ds",$timeleft/60/60, $timeleft/60%60, $timeleft %60)
-			. '</td></tr>';
+			. '</td><td>'
+			. get_votes($db,$row['id'])
+			. ' / '
+			. get_membercount($db) * VOTE_PERCENTAGE_REQUIRED
+			. '</td><td>';
+			if($row['flag'] == CHALLENGE_OPEN) {
+				echo '<form action="challenge_vote.php" method="post"><button type="submit" name="vote" value="'
+					. $row['id']
+					. '">Vote</button></form>';
+			}
+			if($row['flag'] != CHALLENGE_REPORTED) {
+					echo	'</td><td><form action="challenge_report.php" method="post"><button type="submit" name="report" value="'
+							. $row['id']
+							.'">Report</button></form>';
+		}
+				echo	'</td></tr>';
     }
 }
 catch (Exception $e) {

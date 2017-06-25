@@ -6,9 +6,9 @@
 <?php
 	$ladder = get_ladder($db);
 
-	for($i = 0; $i < count($ladder); $i++){
+	for($i = 0; $i < 3; $i++){
 		echo 	'<tr><td>' 
-				. ($i+1)
+				. ($i + 1)
 				. '</td><td>'
 				. $ladder[$i]["usr"]
 				. '</td><td><a href="' 
